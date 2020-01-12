@@ -26,23 +26,23 @@ This module requires these other modules and libraries:
 
 ```
 .
-├── bin
+├── bin/
 │   ├── factory_reset.sh
 │   ├── gen_stm8.py
 │   ├── gen_stm8_run.py
-│   └── stm8_pro
+│   └── stm8_pro/
 │       ├── __init__.py
 │       ├── read_template.py
 │       ├── stm8_setup.py
 │       └── write_template.py
-├── conf
+├── conf/
 │   ├── gen_stm8.cfg
 │   ├── gen_stm8_util.cfg
-│   └── template
+│   └── template/
 │       ├── Makefile.template
 │       ├── module.template
 │       └── stm8l.template
-└── log
+└── log/
     └── gen_stm8.log
 
 ```
