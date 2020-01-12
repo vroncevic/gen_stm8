@@ -22,7 +22,7 @@ from os import getcwd
 try:
     from pathlib import Path
 
-    from stm_pro.stm8_setup import STM8Setup
+    from stm8_pro.stm8_setup import STM8Setup
     from ats_utilities.cfg_base import CfgBase
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message

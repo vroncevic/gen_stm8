@@ -18,17 +18,17 @@
 
 SDCC=sdcc
 SDLD=sdld
-OBJECTS=${PRO}.ihx
+OBJECTS=main.ihx
 
 .PHONY: all clean flash
 
-all: $(OBJECTS)
+all: $$(OBJECTS)
 
 clean:
-	rm -f $(OBJECTS)
+	rm -f $$(OBJECTS)
 
-flash: $(OBJECT).ihx
-	stm8flash -c stlinkv2 -p stm8s103f3 -w $(OBJECT).ihx
+flash: $$(OBJECT).ihx
+	stm8flash -c stlinkv2 -p stm8s103f3 -w $$(OBJECT).ihx
 
 %.ihx: %.c
-	$(SDCC) -lstm8 -mstm8 --out-fmt-ihx $(CFLAGS) $(LDFLAGS) $<
+	$$(SDCC) -lstm8 -mstm8 --out-fmt-ihx $$(CFLAGS) $$(LDFLAGS) $$<

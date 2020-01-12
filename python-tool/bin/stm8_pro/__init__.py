@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
 """
-    Generating setup.py
+    Generating STM8 project setup
 """
 
