@@ -65,7 +65,7 @@ class ReadTemplate(FileChecking):
     VERBOSE = 'GEN_STM8::STM8_PRO::READ_TEMPLATE'
     __TEMPLATE_DIR = '/../../conf/template/'
     __TEMPLATES = {
-        1: 'stm8l.template',
+        1: 'stm8s.template',
         2: 'module.template',
         3: 'Makefile.template'
     }
