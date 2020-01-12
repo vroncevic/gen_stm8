@@ -41,7 +41,7 @@ This module requires these other modules and libraries:
 │   └── template/
 │       ├── Makefile.template
 │       ├── module.template
-│       └── stm8l.template
+│       └── stm8s.template
 └── log/
     └── gen_stm8.log
 
