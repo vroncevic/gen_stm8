@@ -20,6 +20,9 @@ import sys
 from inspect import stack
 
 try:
+    from stm8_pro.read_template import ReadTemplate
+    from stm8_pro.write_template import WriteTemplate
+
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
@@ -41,7 +44,7 @@ __status__ = 'Updated'
 class STM8Setup(object):
     """
         Define class STM8Setup with attribute(s) and method(s).
-        Generate project skeleton.
+        Generate STM8 project skeleton.
         It defines:
             attribute:
                 __slots__ - Setting class slots
@@ -53,8 +56,8 @@ class STM8Setup(object):
                 gen_pro_setup - Generate project skeleton
     """
 
-    __slots__ = ('VERBOSE')
-    VERBOSE = 'GEN_STM8::STM8_SETUP::STM8SETUP'
+    __slots__ = ('VERBOSE', '__reader', '__writer')
+    VERBOSE = 'GEN_STM8::STM8_PRO::STM8SETUP'
 
     def __init__(self, verbose=False):
         """
@@ -64,11 +67,12 @@ class STM8Setup(object):
             :exceptions: None
         """
         verbose_message(STM8Setup.VERBOSE, verbose, 'Initial setup')
-        pass
+        self.__reader = ReadTemplate(verbose=verbose)
+        self.__writer = WriteTemplate(verbose=verbose)
 
     def gen_pro_setup(self, project_name, verbose=False):
         """
-            Generate setup.py for python package.
+            Generate project structure.
             :param project_name: PRoject name
             :type project_name: <str>
             :param verbose: Enable/disable verbose option
@@ -77,6 +81,20 @@ class STM8Setup(object):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        func, status, setup_content = stack()[0][3], False, None
-        return True
+        func, status, project_content = stack()[0][3], False, None
+        project_txt = 'Argument: expected project_name <str> object'
+        project_msg = "{0} {1} {2}".format('def', func, project_txt)
+        if project_name is None or not project_name:
+            raise ATSBadCallError(project_msg)
+        if not isinstance(project_name, str):
+            raise ATSTypeError(project_msg)
+        verbose_message(
+            STM8Setup.VERBOSE, verbose, 'Generating project', project_name
+        )
+        project_content = self.__reader.read(verbose=verbose)
+        if project_content:
+            status = self.__writer.write(
+                project_content, project_name, verbose=verbose
+            )
+        return True if status else False
 
