@@ -20,9 +20,35 @@ This module requires these other modules and libraries:
 
 * ats_utilities https://vroncevic.github.io/ats_utilities
 
+### Tool structure
+
+![alt tag](https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/python-tool-docs/gen_stm8.png)
+
+```
+.
+├── bin/
+│   ├── gen_stm8.py
+│   ├── gen_stm8_run.py
+│   └── stm8_pro/
+│       ├── __init__.py
+│       ├── read_template.py
+│       ├── stm8_setup.py
+│       └── write_template.py
+├── conf/
+│   ├── gen_stm8.cfg
+│   ├── gen_stm8_util.cfg
+│   └── template/
+│       ├── Makefile.template
+│       ├── module.template
+│       └── stm8l.template
+└── log/
+    └── gen_stm8.log
+
+```
+
 ### COPYRIGHT AND LICENCE
 
-Copyright (C) 2019 by https://vroncevic.github.io/gen_stm8/
+Copyright (C) 2020 by https://vroncevic.github.io/gen_stm8/
 
 This tool is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.7/3.4 or,
