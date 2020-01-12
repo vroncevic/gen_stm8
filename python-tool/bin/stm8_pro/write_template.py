@@ -57,7 +57,7 @@ class WriteTemplate(object):
     __slots__ = ('VERBOSE', '__SETUP_FILES')
     VERBOSE = 'GEN_STM8::STM8_PRO::WRITE_TEMPLATE'
     __SETUP_FILES = {
-        1: 'stm8l.h', 2: 'main.c', 3: 'Makefile'
+        1: 'stm8s.h', 2: 'main.c', 3: 'Makefile'
     }
 
     def __init__(self, verbose=False):
