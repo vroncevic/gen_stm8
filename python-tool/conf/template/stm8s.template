@@ -1,6 +1,6 @@
 /* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 4; tab-width: 4 -*-  */
 /*
- * stm8l.h
+ * stm8s.h
  * Copyright (C) 2020 Vladimir Roncevic <elektron.ronca@gmail.com>
  * 
  * ${PRO} is free software: you can redistribute it and/or modify it
@@ -17,8 +17,8 @@
  * with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef STM8L_H
-#define STM8L_H
+#ifndef STM8S_H
+#define STM8S_H
 
 /* GPIO */
 #define PA_ODR *(unsigned char*)0x5000
