@@ -1,5 +1,10 @@
 # STM8 project skeleton generator.
 
+gen_stm8 is toolset for generation STM8 project skeleton for
+developmet of embedded applications.
+
+Developed in python code: 100%.
+
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
@@ -9,9 +14,9 @@ other information that should be provided before the modules are installed.
 To install this set of modules type the following:
 
 ```
-cp -R ~/gen_stm8_scripts/bin/   /root/scripts/gen_stm8/ver.1.0/
-cp -R ~/gen_stm8_scripts/conf/  /root/scripts/gen_stm8/ver.1.0/
-cp -R ~/gen_stm8_scripts/log/   /root/scripts/gen_stm8/ver.1.0/
+cp -R ~/gen_stm8/bin/   /root/scripts/gen_stm8/ver.1.0/
+cp -R ~/gen_stm8/conf/  /root/scripts/gen_stm8/ver.1.0/
+cp -R ~/gen_stm8/log/   /root/scripts/gen_stm8/ver.1.0/
 ```
 
 ### DEPENDENCIES
@@ -20,9 +25,19 @@ This module requires these other modules and libraries:
 
 * ats_utilities https://vroncevic.github.io/ats_utilities
 
-### Tool structure
+### GENERATION FLOW OF STM8 PROJECT
+
+Base flow of generation process:
+
+![alt tag](https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/python-tool-docs/gen_stm8_flow.png)
+
+### TOOL STRUCTURE
+
+gen_stm8 is based on Template mechanism:
 
 ![alt tag](https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/python-tool-docs/gen_stm8.png)
+
+Generator structure:
 
 ```
 .
