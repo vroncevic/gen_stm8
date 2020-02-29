@@ -81,7 +81,7 @@ class STM8Setup(object):
             :rtype: <bool>
             :exceptions: ATSBadCallError | ATSTypeError
         """
-        func, status, project_content = stack()[0][3], False, None
+        func, status, project_data = stack()[0][3], False, {}
         project_txt = 'Argument: expected project_name <str> object'
         project_msg = "{0} {1} {2}".format('def', func, project_txt)
         if project_name is None or not project_name:
@@ -91,10 +91,9 @@ class STM8Setup(object):
         verbose_message(
             STM8Setup.VERBOSE, verbose, 'Generating project', project_name
         )
-        project_content = self.__reader.read(verbose=verbose)
-        if project_content:
-            status = self.__writer.write(
-                project_content, project_name, verbose=verbose
-            )
+        project_data['templates'] = self.__reader.read(verbose=verbose)
+        project_data['name'] = project_name
+        if project_data:
+            status = self.__writer.write(project_data, verbose=verbose)
         return True if status else False
 

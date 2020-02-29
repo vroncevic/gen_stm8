@@ -18,7 +18,7 @@
 
 SDCC=sdcc
 SDLD=sdld
-OBJECTS=main.ihx
+OBJECTS=../main.ihx
 
 .PHONY: all clean flash
 
