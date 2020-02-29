@@ -1,0 +1,10 @@
+templates:
+    module.template
+    stm8s.template
+    Makefile.template
+
+modules:
+    main.c
+    stm8s.h
+    Makefile
+
