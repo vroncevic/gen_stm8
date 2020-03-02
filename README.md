@@ -12,13 +12,16 @@ other information that should be provided before the modules are installed.
 ![Python package](https://github.com/vroncevic/gen_stm8/workflows/Python%20package/badge.svg?branch=master)
 
 ### INSTALLATION
+Navigate to release [page](https://github.com/vroncevic/gen_stm8/releases/tag/v1.0) download and extract release archive.
 
 To install this set of modules type the following:
 
 ```
-cp -R ~/gen_stm8/bin/   /root/scripts/gen_stm8/
-cp -R ~/gen_stm8/conf/  /root/scripts/gen_stm8/
-cp -R ~/gen_stm8/log/   /root/scripts/gen_stm8/
+tar xvzf gen_stm8-1.0.tar.gz
+cd gen_stm8-1.0/python-tool
+cp -R ~/bin/   /root/scripts/gen_stm8/
+cp -R ~/conf/  /root/scripts/gen_stm8/
+cp -R ~/log/   /root/scripts/gen_stm8/
 ```
 
 ### DEPENDENCIES
