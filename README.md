@@ -9,14 +9,16 @@ The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
+![Python package](https://github.com/vroncevic/gen_stm8/workflows/Python%20package/badge.svg?branch=master)
+
 ### INSTALLATION
 
 To install this set of modules type the following:
 
 ```
-cp -R ~/gen_stm8/bin/   /root/scripts/gen_stm8/ver.1.0/
-cp -R ~/gen_stm8/conf/  /root/scripts/gen_stm8/ver.1.0/
-cp -R ~/gen_stm8/log/   /root/scripts/gen_stm8/ver.1.0/
+cp -R ~/gen_stm8/bin/   /root/scripts/gen_stm8/
+cp -R ~/gen_stm8/conf/  /root/scripts/gen_stm8/
+cp -R ~/gen_stm8/log/   /root/scripts/gen_stm8/
 ```
 
 ### DEPENDENCIES
