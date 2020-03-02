@@ -3,4 +3,3 @@
 """
     Generating STM8 project setup
 """
-
