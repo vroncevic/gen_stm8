@@ -1,20 +1,24 @@
 # -*- coding: UTF-8 -*-
-# stm8_setup.py
-# Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
-#
-# gen_stm8 is free software: you can redistribute it and/or modify it
-# under the terms of the GNU General Public License as published by the
-# Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# gen_stm8 is distributed in the hope that it will be useful, but
-# WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# See the GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License along
-# with this program. If not, see <http://www.gnu.org/licenses/>.
-#
+
+"""
+ Module
+     stm8_setup.py
+ Copyright
+     Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
+     gen_stm8 is free software: you can redistribute it and/or modify it
+     under the terms of the GNU General Public License as published by the
+     Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+     gen_stm8 is distributed in the hope that it will be useful, but
+     WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+     See the GNU General Public License for more details.
+     You should have received a copy of the GNU General Public License along
+     with this program. If not, see <http://www.gnu.org/licenses/>.
+ Info
+     Define class STM8Setup with attribute(s) and method(s).
+     Generate STM8 project skeleton.
+"""
 
 import sys
 from inspect import stack
@@ -24,12 +28,11 @@ try:
     from stm8_pro.write_template import WriteTemplate
 
     from ats_utilities.console_io.verbose import verbose_message
-    from ats_utilities.console_io.error import error_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
-except ImportError as e:
-    msg = "\n{0}\n{1}\n".format(__file__, e)
-    sys.exit(msg)  # Force close python ATS ##################################
+except ImportError as error:
+    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+    sys.exit(MESSAGE)  # Force close python ATS ##############################
 
 __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2019, Free software to use and distributed it.'
@@ -53,6 +56,8 @@ class STM8Setup(object):
                 __writer - Writer API
             method:
                 __init__ - Initial constructor
+                get_reader - Getter for template reader
+                get_writer - Getter for template writer
                 gen_pro_setup - Generate project skeleton
     """
 
@@ -69,6 +74,24 @@ class STM8Setup(object):
         verbose_message(STM8Setup.VERBOSE, verbose, 'Initial setup')
         self.__reader = ReadTemplate(verbose=verbose)
         self.__writer = WriteTemplate(verbose=verbose)
+
+    def get_reader(self):
+        """
+            Getter for template reader
+            :return: Template reader object
+            :rtype: <ReadTemplate>
+            :exceptions: None
+        """
+        return self.__reader
+
+    def get_writer(self):
+        """
+            Getter for template writer
+            :return: Template writer object
+            :rtype: <WriteTemplate>
+            :exceptions: None
+        """
+        return self.__writer
 
     def gen_pro_setup(self, project_name, verbose=False):
         """
@@ -96,4 +119,3 @@ class STM8Setup(object):
         if project_data:
             status = self.__writer.write(project_data, verbose=verbose)
         return True if status else False
-
