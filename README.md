@@ -10,15 +10,20 @@ how to install the modules, any machine dependencies it may have and any
 other information that should be provided before the modules are installed.
 
 ![Python package](https://github.com/vroncevic/gen_stm8/workflows/Python%20package/badge.svg?branch=master)
+ [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/gen_stm8.svg)](https://github.com/vroncevic/gen_stm8/issues)
+ [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/gen_stm8.svg)](https://github.com/vroncevic/gen_stm8/graphs/contributors)
 
 ### INSTALLATION
+Navigate to release [page](https://github.com/vroncevic/gen_stm8/releases/tag/v1.0) download and extract release archive.
 
 To install this set of modules type the following:
 
 ```
-cp -R ~/gen_stm8/bin/   /root/scripts/gen_stm8/
-cp -R ~/gen_stm8/conf/  /root/scripts/gen_stm8/
-cp -R ~/gen_stm8/log/   /root/scripts/gen_stm8/
+tar xvzf gen_stm8-1.0.tar.gz
+cd gen_stm8-1.0/python-tool
+cp -R ~/bin/   /root/scripts/gen_stm8/
+cp -R ~/conf/  /root/scripts/gen_stm8/
+cp -R ~/log/   /root/scripts/gen_stm8/
 ```
 
 ### DEPENDENCIES
@@ -65,6 +70,8 @@ Generator structure:
 ```
 
 ### COPYRIGHT AND LICENCE
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 Copyright (C) 2020 by https://vroncevic.github.io/gen_stm8/
 
