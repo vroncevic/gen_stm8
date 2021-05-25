@@ -19,9 +19,16 @@ RUN DEBIAN_FRONTEND=noninteractive \
  apt-get install -yq --no-install-recommends \
  tree \
  htop \
+ wget \
+ unzip \
+ ca-certificates \
+ openssl \
  python \
  python-pip \
  python-wheel \
+ python3 \
+ python3-pip \
+ python3-wheel \
  libyaml-dev \
  make \
  sdcc
