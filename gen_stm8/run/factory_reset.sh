@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # @brief   Factory reset fir uC stm8s103f3
-# @version ver.1.0
+# @version ver.1.2.0
 # @date    Sun Jan 12 17:05:40 CET 2020
 # @company None, free software to use 2020
 # @author  Vladimir Roncevic <elektron.ronca@gmail.com>

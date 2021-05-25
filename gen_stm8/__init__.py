@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-"""
+'''
  Module
      __init__.py
  Copyright
-     Copyright (C) 2019 Vladimir Roncevic <elektron.ronca@gmail.com>
+     Copyright (C) 2018 Vladimir Roncevic <elektron.ronca@gmail.com>
      gen_stm8 is free software: you can redistribute it and/or modify it
      under the terms of the GNU General Public License as published by the
      Free Software Foundation, either version 3 of the License, or
@@ -16,116 +16,167 @@
      You should have received a copy of the GNU General Public License along
      with this program. If not, see <http://www.gnu.org/licenses/>.
  Info
-     Define class GenSTM8 with attribute(s) and method(s).
-     Load a settings, create an interface and run operation(s).
-"""
+     Defined class GenSTM8 with attribute(s) and method(s).
+     Load a base info, create an CLI interface and run operation(s).
+'''
 
 import sys
 from os import getcwd
 
 try:
     from pathlib import Path
-    from gen_stm8.stm8_pro.stm8_setup import STM8Setup
-    from ats_utilities.cfg_base import CfgBase
+    from gen_stm8.pro import STM8Setup
+    from ats_utilities.logging import ATSLogger
+    from ats_utilities.cli.cfg_cli import CfgCLI
+    from ats_utilities.cooperative import CooperativeMeta
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.console_io.success import success_message
-except ImportError as error:
-    MESSAGE = "\n{0}\n{1}\n".format(__file__, error)
+except ImportError as ats_error_message:
+    MESSAGE = '\n{0}\n{1}\n'.format(__file__, ats_error_message)
     sys.exit(MESSAGE)  # Force close python ATS ##############################
 
-__author__ = "Vladimir Roncevic"
-__copyright__ = "Copyright 2019, Free software to use and distributed it."
-__credits__ = ["Vladimir Roncevic"]
-__license__ = "GNU General Public License (GPL)"
-__version__ = "1.0.0"
-__maintainer__ = "Vladimir Roncevic"
-__email__ = "elektron.ronca@gmail.com"
-__status__ = "Updated"
+__author__ = 'Vladimir Roncevic'
+__copyright__ = 'Copyright 2018, https://vroncevic.github.io/gen_stm8'
+__credits__ = ['Vladimir Roncevic']
+__license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
+__version__ = '1.2.0'
+__maintainer__ = 'Vladimir Roncevic'
+__email__ = 'elektron.ronca@gmail.com'
+__status__ = 'Updated'
 
 
-class GenSTM8(CfgBase):
-    """
-        Define class GenSTM8 with attribute(s) and method(s).
-        Load a settings, create an interface and run operation(s).
+class GenSTM8(CfgCLI):
+    '''
+        Defined class GenSTM8 with attribute(s) and method(s).
+        Load a base info, create an CLI interface and run operation(s).
         It defines:
 
             :attributes:
-                | __slots__ - Setting class slots
-                | VERBOSE - Console text indicator for current process-phase
-                | __CONFIG - Configuration file path
-                | __OPS - Tool options (list)
+                | __metaclass__ - setting cooperative metaclasses.
+                | GEN_VERBOSE - console text indicator for process-phase.
+                | CONFIG - tool info file path.
+                | LOG - tool log file path.
+                | OPS - list of tool options.
+                | logger - logger object API.
             :methods:
-                | __init__ - Initial constructor
-                | process - Process and run tool option
-    """
+                | __init__ - initial constructor.
+                | process - process and generate STM8 project.
+                | __str__ - dunder method for GenSTM8.
+    '''
 
-    __slots__ = ('VERBOSE', '__CONFIG', '__OPS')
-    VERBOSE = 'GEN_STM8'
-    __CONFIG = '/conf/gen_stm8.cfg'
-    __OPS = ['-g', '--gen', '-h', '--version']
+    __metaclass__ = CooperativeMeta
+    GEN_VERBOSE = 'GEN_STM8'
+    CONFIG = '/conf/gen_stm8.cfg'
+    LOG = '/log/gen_stm8.log'
+    OPS = ['-g', '--gen', '-v', '--verbose', '--version']
 
     def __init__(self, verbose=False):
-        """
-            Loading configuration and setting argument options.
+        '''
+            Initial constructor.
 
-            :param verbose: Enable/disable verbose option
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
             :exceptions: None
-        """
-        verbose_message(GenSTM8.VERBOSE, verbose, 'Initial configuration')
+        '''
         current_dir = Path(__file__).resolve().parent
-        base_config_file = "{0}{1}".format(current_dir, GenSTM8.__CONFIG)
-        CfgBase.__init__(self, base_config_file, verbose=verbose)
-        if self.tool_status:
+        base_info = '{0}{1}'.format(current_dir, GenSTM8.CONFIG)
+        CfgCLI.__init__(self, base_info, verbose=verbose)
+        verbose_message(GenSTM8.GEN_VERBOSE, verbose, 'init tool info')
+        self.logger = ATSLogger(
+            GenSTM8.GEN_VERBOSE.lower(),
+            '{0}{1}'.format(current_dir, GenSTM8.LOG),
+            verbose=verbose
+        )
+        if self.tool_operational:
             self.add_new_option(
-                GenSTM8.__OPS[0], GenSTM8.__OPS[1], dest="pro",
-                help="generate STM8 project skeleton"
+                GenSTM8.OPS[0], GenSTM8.OPS[1], dest='gen',
+                help='generate STM8 project'
+            )
+            self.add_new_option(
+                GenSTM8.OPS[2], GenSTM8.OPS[3],
+                action='store_true', default=False,
+                help='activate verbose mode'
+            )
+            self.add_new_option(
+                GenSTM8.OPS[4], action='version', version=__version__
             )
 
     def process(self, verbose=False):
-        """
+        '''
             Process and run operation.
 
-            :param verbose: Enable/disable verbose option
+            :param verbose: enable/disable verbose option.
             :type verbose: <bool>
-            :return: True (success) | False
+            :return: boolean status, True (success) | False.
             :rtype: <bool>
             :exceptions: None
-        """
+        '''
         status = False
-        if self.tool_status:
-            self.show_base_info(verbose=verbose)
-            if len(sys.argv) > 1:
+        if self.tool_operational:
+            num_of_args_sys = len(sys.argv)
+            if num_of_args_sys > 1:
                 operation = sys.argv[1]
-                if operation not in GenSTM8.__OPS:
-                    sys.argv = []
-                    sys.argv.append("-h")
+                if operation not in GenSTM8.OPS:
+                    sys.argv.append('-h')
             else:
-                sys.argv.append("-h")
-            opts, args = self.parse_args(sys.argv)
-            project = "{0}".format(opts.pro)
-            current_dir, num_of_args = getcwd(), len(args)
-            project_path = "{0}/{1}".format(current_dir, project)
+                sys.argv.append('-h')
+            args = self.parse_args(sys.argv[1:])
+            project_path = '{0}/{1}'.format(getcwd(), getattr(args, 'gen'))
             project_exists = Path(project_path).exists()
-            if num_of_args == 1 and opts.pro and not project_exists:
-                generator, gen_status = STM8Setup(verbose=verbose), False
-                print(
-                    "{0} {1} [{2}]".format(
-                        "[{0}]".format(GenSTM8.VERBOSE),
-                        'Generating STM8 project skeleton', opts.pro
+            if not project_exists:
+                if bool(getattr(args, 'gen')):
+                    generator = STM8Setup(
+                        getattr(args, 'gen'),
+                        verbose=getattr(args, 'verbose') or verbose
                     )
-                )
-                gen_status = generator.gen_pro_setup("{0}".format(opts.pro))
-                if gen_status:
-                    success_message(GenSTM8.VERBOSE, 'Done\n')
-                    status = True
+                    print(
+                        '{0} {1} [{2}]'.format(
+                            '[{0}]'.format(GenSTM8.VERBOSE.lower()),
+                            'generating STM8 project skeleton',
+                            getattr(args, 'gen')
+                        )
+                    )
+                    status = generator.gen_pro_setup(
+                        verbose=getattr(args, 'verbose') or verbose
+                    )
+                    if status:
+                        success_message(GenSTM8.VERBOSE, 'done\n')
+                        self.logger.write_log(
+                            '{0} {1} done'.format(
+                                'generating STM8 project', getattr(args, 'gen')
+                            ), ATSLogger.ATS_INFO
+                        )
+                    else:
+                        error_message(GenSTM8.VERBOSE, 'generation failed')
+                        self.logger.write_log(
+                            'generation failed', ATSLogger.ATS_ERROR
+                        )
                 else:
-                    error_message(
-                        GenSTM8.VERBOSE, 'Failed to generate project'
+                    error_message(GenSTM8.GEN_VERBOSE, 'provide project name')
+                    self.logger.write_log(
+                        'provide project name', ATSLogger.ATS_ERROR
                     )
             else:
-                error_message(GenSTM8.VERBOSE, 'project already exist !')
+                error_message(GenSTM8.VERBOSE, 'project already exist')
+                self.logger.write_log(
+                    'project already exist', ATSLogger.ATS_ERROR
+                )
         else:
-            error_message(GenSTM8.VERBOSE, 'Tool is not operational')
-        return True if status else False
+            error_message(GenSTM8.VERBOSE, 'tool is not operational')
+            self.logger.write_log(
+                'tool is not operational', ATSLogger.ATS_ERROR
+            )
+        return status
+
+    def __str__(self):
+        '''
+            Dunder method for GenSTM8.
+
+            :return: object in a human-readable format.
+            :rtype: <str>
+            :exceptions: None
+        '''
+        return '{0} ({1}, {2})'.format(
+            self.__class__.__name__, CfgCLI.__str__(self), str(self.logger)
+        )

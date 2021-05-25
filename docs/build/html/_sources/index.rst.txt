@@ -51,13 +51,26 @@ To install **gen_stm8** type the following:
 .. code-block:: bash
 
     tar xvzf gen_stm8-x.y.z.tar.gz
-    cd gen_stm8-x.y.z/
+    cd gen_stm8-x.y.z
+    #python2
     pip install -r requirements.txt
     python setup.py install_lib
     python setup.py install_egg_info
     python setup.py install_data
+    #python3
+    pip3 install -r requirements.txt
+    python3 setup.py install_lib
+    python3 setup.py install_egg_info
+    python3 setup.py install_data
 
-You can use Docker to create image/container.
+You can use Docker to create image/container, or You can use pip to install:
+
+.. code-block:: bash
+
+    #python2
+    pip install gen_stm8
+    #python3
+    pip3 install gen_stm8
 
 |GitHub docker checker|
 
@@ -89,7 +102,7 @@ Code structure:
 
 .. code-block:: bash
 
-    .
+    gen_stm8
     ├── conf/
     │   ├── gen_stm8.cfg
     │   ├── gen_stm8_util.cfg
@@ -101,14 +114,17 @@ Code structure:
     ├── __init__.py
     ├── log/
     │   └── gen_stm8.log
-    ├── run/
-    │   ├── factory_reset.sh
-    │   └── gen_stm8_run.py
-    └── stm8_pro/
-        ├── __init__.py
-        ├── read_template.py
-        ├── stm8_setup.py
-        └── write_template.py
+    ├── pro/
+    │   ├── config/
+    │   │   ├── __init__.py
+    │   │   ├── pro_name.py
+    │   │   └── template_dir.py
+    │   ├── __init__.py
+    │   ├── read_template.py
+    │   └── write_template.py
+    └── run/
+        ├── factory_reset.sh
+        └── gen_stm8_run.py
 
 Copyright and licence
 ----------------------
@@ -121,7 +137,7 @@ Copyright and licence
 .. |License: Apache 2.0| image:: https://img.shields.io/badge/License-Apache%202.0-blue.svg
    :target: https://opensource.org/licenses/Apache-2.0
 
-Copyright (C) 2020 by `vroncevic.github.io/gen_stm8 <https://vroncevic.github.io/gen_stm8>`_
+Copyright (C) 2018 by `vroncevic.github.io/gen_stm8 <https://vroncevic.github.io/gen_stm8>`_
 
 **gen_stm8** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 2.x/3.x or,

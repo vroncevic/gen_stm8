@@ -15,7 +15,8 @@
 
 FROM debian:10
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
+RUN DEBIAN_FRONTEND=noninteractive \
+ apt-get install -yq --no-install-recommends \
  tree \
  htop \
  python \
@@ -26,17 +27,22 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
  sdcc
 
 RUN pip install --upgrade setuptools
+RUN pip3 install --upgrade setuptools
 RUN mkdir /gen_stm8/
 COPY gen_stm8 /gen_stm8/
 COPY setup.py /
 COPY README.md /
 COPY requirements.txt /
 RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 RUN rm -f requirements.txt
 RUN find /gen_stm8/ -name "*.editorconfig" -type f -exec rm -Rf {} \;
-RUN python setup.py install_lib && python setup.py install_egg_info && python setup.py install_data
+RUN python setup.py install_lib
+RUN python setup.py install_egg_info
+RUN python setup.py install_data
+RUN python3 setup.py install_lib
+RUN python3 setup.py install_egg_info
+RUN python3 setup.py install_data
 RUN rm -rf /gen_stm8/
 RUN rm -f setup.py
 RUN rm -f README.md
-RUN chmod -R 755 /usr/local/lib/python2.7/dist-packages/gen_stm8/
-RUN tree /usr/local/lib/python2.7/dist-packages/gen_stm8/
