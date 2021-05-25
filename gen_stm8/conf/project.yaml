@@ -1,10 +1,9 @@
 templates:
-    module.template
-    stm8s.template
-    Makefile.template
+  - module.template
+  - stm8s.template
+  - Makefile.template
 
 modules:
-    main.c
-    stm8s.h
-    Makefile
-
+  - main.c
+  - stm8s.h
+  - Makefile

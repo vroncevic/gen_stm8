@@ -1,3 +1,5 @@
+<img align="right" src="https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/docs/gen_stm8_logo.png" width="25%">
+
 # STM8 project skeleton generator
 
 **gen_stm8** is toolset for generation STM8 project skeleton for
@@ -16,6 +18,9 @@ other information that should be provided before the modules are installed.
 **Table of Contents**
 
 - [Installation](#installation)
+    - [Install using pip](#install-using-pip)
+    - [Install using setuptools](#install-using-setuptools)
+    - [Install using docker](#install-using-docker)
 - [Dependencies](#dependencies)
 - [Generation flow](#generation-flow)
 - [Tool structure](#tool-structure)
@@ -28,79 +33,46 @@ other information that should be provided before the modules are installed.
 
 ![Install Python2 Package](https://github.com/vroncevic/gen_stm8/workflows/Install%20Python2%20Package%20gen_stm8/badge.svg?branch=master) ![Install Python3 Package](https://github.com/vroncevic/gen_stm8/workflows/Install%20Python3%20Package%20gen_stm8/badge.svg?branch=master)
 
-Navigate to release **[page](https://github.com/vroncevic/gen_stm8/releases/)** download and extract release archive.
+Currently there are three ways to install tool:
+* Install process based on pip
+* Install process based on setup.py (setuptools)
+* Install process based on docker mechanism
 
-To install **gen_stm8** type the following:
+##### Install using pip
 
+Python package is located at **[pypi.org](https://pypi.org/project/gen_stm8/)**.
+
+You can install by using pip
+```
+#python2
+pip install gen-stm8
+#python3
+pip3 install gen-stm8
+```
+
+##### Install using setuptools
+
+Navigate to **[release page](https://github.com/vroncevic/gen_stm8/releases)** download and extract release archive.
+
+To install modules, locate and run setup.py, type the following:
 ```
 tar xvzf gen_stm8-x.y.z.tar.gz
 cd gen_stm8-x.y.z
+#python2
 pip install -r requirements.txt
-```
-
-Install lib process
-```
 python setup.py install_lib
-running install_lib
-running build_py
-creating build
-creating build/lib.linux-x86_64-2.7
-creating build/lib.linux-x86_64-2.7/gen_stm8
-copying gen_stm8/__init__.py -> build/lib.linux-x86_64-2.7/gen_stm8
-creating build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro
-copying gen_stm8/stm8_pro/stm8_setup.py -> build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro
-copying gen_stm8/stm8_pro/__init__.py -> build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro
-copying gen_stm8/stm8_pro/write_template.py -> build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro
-copying gen_stm8/stm8_pro/read_template.py -> build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro
-creating /usr/local/lib/python2.7/dist-packages/gen_stm8
-copying build/lib.linux-x86_64-2.7/gen_stm8/__init__.py -> /usr/local/lib/python2.7/dist-packages/gen_stm8
-creating /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro
-copying build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro/stm8_setup.py -> /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro
-copying build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro/__init__.py -> /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro
-copying build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro/write_template.py -> /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro
-copying build/lib.linux-x86_64-2.7/gen_stm8/stm8_pro/read_template.py -> /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro
-byte-compiling /usr/local/lib/python2.7/dist-packages/gen_stm8/__init__.py to __init__.pyc
-byte-compiling /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro/stm8_setup.py to stm8_setup.pyc
-byte-compiling /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro/__init__.py to __init__.pyc
-byte-compiling /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro/write_template.py to write_template.pyc
-byte-compiling /usr/local/lib/python2.7/dist-packages/gen_stm8/stm8_pro/read_template.py to read_template.pyc
-```
-
-Install lib egg info
-```
 python setup.py install_egg_info
-running install_egg_info
-running egg_info
-creating gen_stm8.egg-info
-writing requirements to gen_stm8.egg-info/requires.txt
-writing gen_stm8.egg-info/PKG-INFO
-writing top-level names to gen_stm8.egg-info/top_level.txt
-writing dependency_links to gen_stm8.egg-info/dependency_links.txt
-writing manifest file 'gen_stm8.egg-info/SOURCES.txt'
-reading manifest file 'gen_stm8.egg-info/SOURCES.txt'
-writing manifest file 'gen_stm8.egg-info/SOURCES.txt'
-Copying gen_stm8.egg-info to /usr/local/lib/python2.7/dist-packages/gen_stm8-1.0.0-py2.7.egg-info
-```
-
-Install lib data
-```
 python setup.py install_data
-running install_data
-copying gen_stm8/run/gen_stm8_run.py -> /usr/local/bin/
-copying gen_stm8/run/factory_reset.sh -> /usr/local/bin/
-creating /usr/local/lib/python2.7/dist-packages/gen_stm8/conf
-copying gen_stm8/conf/gen_stm8.cfg -> /usr/local/lib/python2.7/dist-packages/gen_stm8/conf/
-copying gen_stm8/conf/gen_stm8_util.cfg -> /usr/local/lib/python2.7/dist-packages/gen_stm8/conf/
-creating /usr/local/lib/python2.7/dist-packages/gen_stm8/conf/template
-copying gen_stm8/conf/template/Makefile.template -> /usr/local/lib/python2.7/dist-packages/gen_stm8/conf/template/
-copying gen_stm8/conf/template/stm8s.template -> /usr/local/lib/python2.7/dist-packages/gen_stm8/conf/template/
-copying gen_stm8/conf/template/module.template -> /usr/local/lib/python2.7/dist-packages/gen_stm8/conf/template/
-copying gen_stm8/conf/project.yaml -> /usr/local/lib/python2.7/dist-packages/gen_stm8/conf/
-creating /usr/local/lib/python2.7/dist-packages/gen_stm8/log
-copying gen_stm8/log/gen_stm8.log -> /usr/local/lib/python2.7/dist-packages/gen_stm8/log/
+#python3
+pip3 install -r requirements.txt
+python3 setup.py install_lib
+python3 setup.py install_egg_info
+python3 setup.py install_data
 ```
 
-Or You can use docker to create image/container.
+##### Install using docker
+
+You can use Dockerfile to create image/container.
 
 [![gen_stm8 docker checker](https://github.com/vroncevic/gen_stm8/workflows/gen_stm8%20docker%20checker/badge.svg)](https://github.com/vroncevic/gen_stm8/actions?query=workflow%3A%22gen_stm8+docker+checker%22)
 
@@ -125,7 +97,7 @@ Base flow of generation process:
 Generator structure:
 
 ```
-.
+gen_stm8
 ├── conf/
 │   ├── gen_stm8.cfg
 │   ├── gen_stm8_util.cfg
@@ -137,14 +109,18 @@ Generator structure:
 ├── __init__.py
 ├── log/
 │   └── gen_stm8.log
-├── run/
-│   ├── factory_reset.sh
-│   └── gen_stm8_run.py
-└── stm8_pro/
-    ├── __init__.py
-    ├── read_template.py
-    ├── stm8_setup.py
-    └── write_template.py
+├── pro/
+│   ├── config/
+│   │   ├── __init__.py
+│   │   ├── pro_name.py
+│   │   └── template_dir.py
+│   ├── __init__.py
+│   ├── read_template.py
+│   └── write_template.py
+└── run/
+    ├── factory_reset.sh
+    └── gen_stm8_run.py
+
 ```
 
 ### Docs
@@ -159,10 +135,10 @@ More documentation and info at:
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2020 by [vroncevic.github.io/gen_stm8](https://vroncevic.github.io/gen_stm8/)
+Copyright (C) 2018 by [vroncevic.github.io/gen_stm8](https://vroncevic.github.io/gen_stm8/)
 
 This tool is free software; you can redistribute it and/or modify
-it under the same terms as Python itself, either Python version 2.7/3.4 or,
+it under the same terms as Python itself, either Python version 2.x/3.x or,
 at your option, any later version of Python 3 you may have available.
 
 Lets help and support PSF.

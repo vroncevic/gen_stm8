@@ -6,7 +6,7 @@ Subpackages
 
 .. toctree::
 
-    gen_stm8.stm8_pro
+    gen_stm8.pro
 
 Module contents
 ---------------
