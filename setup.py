@@ -29,7 +29,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, https://vroncevic.github.io/gen_stm8'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
-__version__ = '1.2.0'
+__version__ = '1.2.1'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -100,7 +100,7 @@ APPROVED_LICENSES = [
 PYP_CLASSIFIERS = SUPPORTED_PY_VERSIONS + APPROVED_LICENSES
 setup(
     name='gen_stm8',
-    version='1.2.0',
+    version='1.2.1',
     description='STM8 project skeleton generator',
     author='Vladimir Roncevic',
     author_email='elektron.ronca@gmail.com',
@@ -111,7 +111,7 @@ setup(
     keywords='STM, STM8, project, C, Unix, Linux',
     platforms='POSIX',
     classifiers=PYP_CLASSIFIERS,
-    packages=['gen_stm8', 'gen_stm8.pro'],
+    packages=['gen_stm8', 'gen_stm8.pro', 'gen_stm8.pro.config'],
     install_requires=['ats-utilities'],
     package_data = {
         'gen_stm8': [
