@@ -22,13 +22,12 @@
 
 import sys
 from os import getcwd, chmod, mkdir
-from os.path import exists, isdir
+from os.path import exists
 from string import Template
 
 try:
     from ats_utilities.checker import ATSChecker
     from ats_utilities.config_io.base_check import FileChecking
-    from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.exceptions.ats_type_error import ATSTypeError
     from ats_utilities.exceptions.ats_bad_call_error import ATSBadCallError
@@ -40,7 +39,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = 'Copyright 2018, https://vroncevic.github.io/gen_stm8'
 __credits__ = ['Vladimir Roncevic']
 __license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
-__version__ = '1.2.1'
+__version__ = '1.2.2'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
