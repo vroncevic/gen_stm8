@@ -22,7 +22,7 @@
 
 import sys
 from os import getcwd
-from os.path import dirname, realpath
+from os.path import exists, dirname, realpath
 
 try:
     from six import add_metaclass
@@ -134,7 +134,7 @@ class GenSTM8(CfgCLI):
                 sys.argv.append('-h')
             args = self.parse_args(sys.argv[1:])
             project_path = '{0}/{1}'.format(getcwd(), getattr(args, 'gen'))
-            project_exists = Path(project_path).exists()
+            project_exists = exists(project_path)
             if not project_exists:
                 if bool(getattr(args, 'gen')):
                     generator = STM8Setup(
