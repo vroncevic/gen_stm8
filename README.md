@@ -5,7 +5,7 @@
 **gen_stm8** is toolset for generation STM8 project skeleton for
 developmet of embedded applications.
 
-Developed in **[python](https://www.python.org/)** code: **100%**.
+Developed in **[python](https://www.python.org/)** code.
 
 The README is used to introduce the modules and provide instructions on
 how to install the modules, any machine dependencies it may have and any
@@ -33,17 +33,19 @@ other information that should be provided before the modules are installed.
 
 ![Install Python2 Package](https://github.com/vroncevic/gen_stm8/workflows/Install%20Python2%20Package%20gen_stm8/badge.svg?branch=master) ![Install Python3 Package](https://github.com/vroncevic/gen_stm8/workflows/Install%20Python3%20Package%20gen_stm8/badge.svg?branch=master)
 
-Currently there are three ways to install tool:
-* Install process based on pip
-* Install process based on setup.py (setuptools)
-* Install process based on docker mechanism
+Currently there are three ways to install tool
+
+- Install process based on pip
+- Install process based on setup.py (setuptools)
+- Install process based on docker mechanism
 
 ##### Install using pip
 
 Python package is located at **[pypi.org](https://pypi.org/project/gen_stm8/)**.
 
 You can install by using pip
-```
+
+```bash
 #python2
 pip install gen-stm8
 #python3
@@ -54,8 +56,9 @@ pip3 install gen-stm8
 
 Navigate to **[release page](https://github.com/vroncevic/gen_stm8/releases)** download and extract release archive.
 
-To install modules, locate and run setup.py, type the following:
-```
+To install modules, locate and run setup.py, type the following
+
+```bash
 tar xvzf gen_stm8-x.y.z.tar.gz
 cd gen_stm8-x.y.z
 #python2
@@ -78,27 +81,28 @@ You can use Dockerfile to create image/container.
 
 ### Dependencies
 
-**gen_stm8** requires next modules and libraries:
+**gen_stm8** requires next modules and libraries
 
-* [ats-utilities - Python App/Tool/Script Utilities](https://vroncevic.github.io/ats_utilities)
+- [ats-utilities - Python App/Tool/Script Utilities](https://vroncevic.github.io/ats_utilities)
 
 ### Generation flow
 
-Base flow of generation process:
+Base flow of generation process
 
-![alt tag](https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/docs/gen_stm8_flow.png)
+![Generation flow](https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/docs/gen_stm8_flow.png)
 
 ### Tool structure
 
-**gen_stm8** is based on Template mechanism:
+**gen_stm8** is based on Template mechanism
 
-![alt tag](https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/docs/gen_stm8.png)
+![Block organization](https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/docs/gen_stm8.png)
 
-Generator structure:
+Generator structure
 
-```
+```bash
 gen_stm8
 ├── conf/
+│   ├── gen_stm8.logo
 │   ├── gen_stm8.cfg
 │   ├── gen_stm8_util.cfg
 │   ├── project.yaml
@@ -127,9 +131,10 @@ gen_stm8
 
 [![Documentation Status](https://readthedocs.org/projects/gen_stm8/badge/?version=latest)](https://gen_stm8.readthedocs.io/projects/gen_stm8/en/latest/?badge=latest)
 
-More documentation and info at:
-* [gen_stm8.readthedocs.io](https://gen_stm8.readthedocs.io/en/latest/)
-* [www.python.org](https://www.python.org/)
+More documentation and info at
+
+- [gen_stm8.readthedocs.io](https://gen_stm8.readthedocs.io/en/latest/)
+- [www.python.org](https://www.python.org/)
 
 ### Copyright and licence
 
