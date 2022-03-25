@@ -34,6 +34,7 @@ __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
 
+
 def install_directory():
     '''
         Return the installation directory, or None.
@@ -72,6 +73,7 @@ def install_directory():
     )
     print(message)
     return None
+
 
 INSTALL_DIR = install_directory()
 TOOL_DIR = 'gen_stm8/'
@@ -113,8 +115,9 @@ setup(
     classifiers=PYP_CLASSIFIERS,
     packages=['gen_stm8', 'gen_stm8.pro', 'gen_stm8.pro.config'],
     install_requires=['ats-utilities'],
-    package_data = {
+    package_data={
         'gen_stm8': [
+            'conf/gen_stm8.logo',
             'conf/gen_stm8.cfg',
             'conf/gen_stm8_util.cfg',
             'conf/project.yaml',
