@@ -109,6 +109,8 @@ Code structure
             ├── factory_reset.sh
             └── gen_stm8_run.py
 
+    6 directories, 14 files
+
 Copyright and licence
 ----------------------
 
