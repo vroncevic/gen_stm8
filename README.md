@@ -131,6 +131,7 @@ gen_stm8/
         ├── factory_reset.sh
         └── gen_stm8_run.py
 
+    6 directories, 14 files
 ```
 
 ### Docs
