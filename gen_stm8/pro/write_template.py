@@ -24,6 +24,7 @@ import sys
 from typing import List, Dict
 from os import getcwd, chmod, mkdir
 from os.path import exists
+from datetime import datetime
 from string import Template
 
 try:
@@ -39,7 +40,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/gen_stm8'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
-__version__ = '1.3.3'
+__version__ = '1.4.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -70,7 +71,7 @@ class WriteTemplate(FileCheck):
             :exceptions: None
         '''
         super().__init__(verbose)
-        verbose_message(verbose, [f'{self._GEN_VERBOSE} init writer'])
+        verbose_message(verbose, [f'{self._GEN_VERBOSE.lower()} init writer'])
 
     def write(
         self,
@@ -118,7 +119,10 @@ class WriteTemplate(FileCheck):
             if bool(template):
                 with open(module_path, 'w', encoding='utf-8') as module_file:
                     module_content: str = template.substitute(
-                        {'PRO': f'{pro_name}'}
+                        {
+                            'PRO': f'{pro_name}',
+                            'YEAR': f'{datetime.now().year}'
+                        }
                     )
                     module_file.write(module_content)
                     chmod(module_path, 0o666)

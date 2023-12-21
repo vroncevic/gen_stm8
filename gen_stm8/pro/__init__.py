@@ -42,7 +42,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/gen_stm8'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
-__version__ = '1.3.3'
+__version__ = '1.4.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -67,8 +67,8 @@ class STM8Setup(FileCheck, ProConfig, ProName):
                 | gen_pro_setup - Generates STM8 project skeleton.
     '''
 
-    _GEN_VERBOSE = 'GEN_STM8::PRO::STM8_SETUP'
-    _PRO_STRUCTURE = '/../conf/project.yaml'
+    _GEN_VERBOSE: str = 'GEN_STM8::PRO::STM8_SETUP'
+    _PRO_STRUCTURE: str = '/../conf/project.yaml'
 
     def __init__(self, verbose: bool = False) -> None:
         '''
