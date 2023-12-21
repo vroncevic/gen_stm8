@@ -17,7 +17,7 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class GenSTM8 with attribute(s) and method(s).
-    Loads a base info, creates an CLI interface and runs operation(s).
+    Loads a base info, creates an CLI interface and runs operations.
 '''
 
 import sys
@@ -41,7 +41,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/gen_stm8'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
-__version__ = '1.3.3'
+__version__ = '1.4.3'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -50,7 +50,7 @@ __status__ = 'Updated'
 class GenSTM8(CfgCLI):
     '''
         Defines class GenSTM8 with attribute(s) and method(s).
-        Loads a base info, creates an CLI interface and runs operation(s).
+        Loads a base info, creates an CLI interface and runs operations.
 
         It defines:
 
@@ -91,7 +91,9 @@ class GenSTM8(CfgCLI):
         Splash(gen_stm8_property, verbose)
         base_info: str = f'{current_dir}{self._CONFIG}'
         super().__init__(base_info, verbose)
-        verbose_message(verbose, [f'{self._GEN_VERBOSE} init tool info'])
+        verbose_message(
+            verbose, [f'{self._GEN_VERBOSE.lower()} init tool info']
+        )
         self._logger: ATSLogger = ATSLogger(
             self._GEN_VERBOSE.lower(), f'{current_dir}{self._LOG}', verbose
         )
@@ -124,7 +126,7 @@ class GenSTM8(CfgCLI):
             if len(sys.argv) >= 4:
                 if sys.argv[2] not in self._OPS:
                     error_message(
-                        [f'{self._GEN_VERBOSE} provide project name']
+                        [f'{self._GEN_VERBOSE.lower()} provide project name']
                     )
                     self._logger.write_log(
                         'provide project name', self._logger.ATS_ERROR
@@ -132,7 +134,7 @@ class GenSTM8(CfgCLI):
                     return status
             else:
                 error_message(
-                    [f'{self._GEN_VERBOSE} provide project name']
+                    [f'{self._GEN_VERBOSE.lower()} provide project name']
                 )
                 self._logger.write_log(
                     'provide project name', self._logger.ATS_ERROR
@@ -156,32 +158,38 @@ class GenSTM8(CfgCLI):
                         getattr(args, 'verbose') or verbose
                     )
                     if status:
-                        success_message([f'{self._GEN_VERBOSE} done\n'])
+                        success_message(
+                            [f'{self._GEN_VERBOSE.lower()} done\n']
+                        )
                         self._logger.write_log(
                             f'gen project {getattr(args, "gen")} done',
                             self._logger.ATS_INFO
                         )
                     else:
                         error_message(
-                            [f'{self._GEN_VERBOSE} generation failed']
+                            [f'{self._GEN_VERBOSE.lower()} generation failed']
                         )
                         self._logger.write_log(
                             'generation failed', self._logger.ATS_ERROR
                         )
                 else:
                     error_message(
-                        [f'{self._GEN_VERBOSE} provide project name']
+                        [f'{self._GEN_VERBOSE.lower()} provide project name']
                     )
                     self._logger.write_log(
                         'provide project name', self._logger.ATS_ERROR
                     )
             else:
-                error_message([f'{self._GEN_VERBOSE} project already exist'])
+                error_message(
+                    [f'{self._GEN_VERBOSE.lower()} project already exist']
+                )
                 self._logger.write_log(
                     'project already exist', self._logger.ATS_ERROR
                 )
         else:
-            error_message([f'{self._GEN_VERBOSE} tool is not operational'])
+            error_message(
+                [f'{self._GEN_VERBOSE.lower()} tool is not operational']
+            )
             self._logger.write_log(
                 'tool is not operational', self._logger.ATS_ERROR
             )
