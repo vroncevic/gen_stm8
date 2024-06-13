@@ -17,12 +17,13 @@ Copyright
     with this program. If not, see <http://www.gnu.org/licenses/>.
 Info
     Defines class GenSTM8 with attribute(s) and method(s).
-    Loads a base info, creates an CLI interface and runs operations.
+    Loads a base info, creates a CLI interface and runs operations.
 '''
 
 import sys
-from typing import Any, List
+from typing import Any, List, Dict
 from os.path import exists, dirname, realpath
+from os import getcwd
 from argparse import Namespace
 
 try:
@@ -32,6 +33,8 @@ try:
     from ats_utilities.console_io.error import error_message
     from ats_utilities.console_io.verbose import verbose_message
     from ats_utilities.console_io.success import success_message
+    from ats_utilities.exceptions.ats_type_error import ATSTypeError
+    from ats_utilities.exceptions.ats_value_error import ATSValueError
     from gen_stm8.pro import STM8Setup
 except ImportError as ats_error_message:
     # Force close python ATS ##################################################
@@ -41,7 +44,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/gen_stm8'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -50,7 +53,7 @@ __status__ = 'Updated'
 class GenSTM8(CfgCLI):
     '''
         Defines class GenSTM8 with attribute(s) and method(s).
-        Loads a base info, creates an CLI interface and runs operations.
+        Loads a base info, creates a CLI interface and runs operations.
 
         It defines:
 
@@ -70,7 +73,7 @@ class GenSTM8(CfgCLI):
     _CONFIG: str = '/conf/gen_stm8.cfg'
     _LOG: str = '/log/gen_stm8.log'
     _LOGO: str = '/conf/gen_stm8.logo'
-    _OPS: List[str] = ['-g', '--gen', '-v', '--verbose', '--version']
+    _OPS: List[str] = ['-n', '--name', '-v', '--verbose']
 
     def __init__(self, verbose: bool = False) -> None:
         '''
@@ -81,7 +84,7 @@ class GenSTM8(CfgCLI):
             :exceptions: None
         '''
         current_dir: str = dirname(realpath(__file__))
-        gen_stm8_property: dict[str, str | bool] = {
+        gen_stm8_property: Dict[str, str | bool] = {
             'ats_organization': 'vroncevic',
             'ats_repository': 'gen_stm8',
             'ats_name': 'gen_stm8',
@@ -99,16 +102,13 @@ class GenSTM8(CfgCLI):
         )
         if self.tool_operational:
             self.add_new_option(
-                self._OPS[0], self._OPS[1], dest='gen',
-                help='generate STM8 project'
+                self._OPS[0], self._OPS[1], dest='name',
+                help='generate STM8 project skeleton'
             )
             self.add_new_option(
                 self._OPS[2], self._OPS[3],
                 action='store_true', default=False,
                 help='activate verbose mode'
-            )
-            self.add_new_option(
-                self._OPS[4], action='version', version=__version__
             )
 
     def process(self, verbose: bool = False) -> bool:
@@ -123,69 +123,51 @@ class GenSTM8(CfgCLI):
         '''
         status = False
         if self.tool_operational:
-            if len(sys.argv) >= 4:
-                if sys.argv[2] not in self._OPS:
+            try:
+                args: Any | Namespace = self.parse_args(sys.argv)
+                if not bool(getattr(args, "name")):
                     error_message(
-                        [f'{self._GEN_VERBOSE.lower()} provide project name']
-                    )
-                    self._logger.write_log(
-                        'provide project name', self._logger.ATS_ERROR
+                        [f'{self._GEN_VERBOSE.lower()} missing name argument']
                     )
                     return status
-            else:
-                error_message(
-                    [f'{self._GEN_VERBOSE.lower()} provide project name']
-                )
-                self._logger.write_log(
-                    'provide project name', self._logger.ATS_ERROR
-                )
-                return status
-            args: Any | Namespace = self.parse_args(sys.argv[2:])
-            if not exists(getattr(args, 'gen')):
-                if bool(getattr(args, 'gen')):
-                    generator: STM8Setup = STM8Setup(
-                        getattr(args, 'verbose') or verbose
-                    )
+                if exists(f'{getcwd()}/{str(getattr(args, "name"))}'):
+                    error_message([
+                        f'{self._GEN_VERBOSE.lower()}',
+                        f'project with name [{getattr(args, "name")}] exists'
+                    ])
+                    return status
+                gen: STM8Setup = STM8Setup(getattr(args, 'verbose') or verbose)
+                try:
                     print(
                         " ".join([
                             f'[{self._GEN_VERBOSE.lower()}]',
                             'gen STM8 project skeleton',
-                            str(getattr(args, 'gen'))
+                            str(getattr(args, 'name'))
                         ])
                     )
-                    status: bool = generator.gen_pro_setup(
-                        getattr(args, 'gen'),
+                    status: bool = gen.gen_pro_setup(
+                        getattr(args, 'name'),
                         getattr(args, 'verbose') or verbose
                     )
-                    if status:
-                        success_message(
-                            [f'{self._GEN_VERBOSE.lower()} done\n']
-                        )
-                        self._logger.write_log(
-                            f'gen project {getattr(args, "gen")} done',
-                            self._logger.ATS_INFO
-                        )
-                    else:
-                        error_message(
-                            [f'{self._GEN_VERBOSE.lower()} generation failed']
-                        )
-                        self._logger.write_log(
-                            'generation failed', self._logger.ATS_ERROR
-                        )
-                else:
-                    error_message(
-                        [f'{self._GEN_VERBOSE.lower()} provide project name']
-                    )
+                except (ATSTypeError, ATSValueError) as e:
+                    error_message([f'{self._GEN_VERBOSE.lower()} {str(e)}'])
+                    self._logger.write_log(f'{str(e)}', self._logger.ATS_ERROR)
+                if status:
+                    success_message([f'{self._GEN_VERBOSE.lower()} done\n'])
                     self._logger.write_log(
-                        'provide project name', self._logger.ATS_ERROR
+                        f'generate project {getattr(args, "name")} done',
+                        self._logger.ATS_INFO
                     )
-            else:
+                else:
+                    error_message([f'{self._GEN_VERBOSE.lower()} failed'])
+                    self._logger.write_log(
+                        'generation failed', self._logger.ATS_ERROR
+                    )
+            except SystemExit:
                 error_message(
-                    [f'{self._GEN_VERBOSE.lower()} project already exist']
+                    [f'{self._GEN_VERBOSE.lower()} expected argument -n']
                 )
-                self._logger.write_log(
-                    'project already exist', self._logger.ATS_ERROR
-                )
+                return status
         else:
             error_message(
                 [f'{self._GEN_VERBOSE.lower()} tool is not operational']

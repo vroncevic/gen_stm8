@@ -24,8 +24,8 @@ other information that should be provided before the modules are installed.
 .. |github contributors| image:: https://img.shields.io/github/contributors/vroncevic/gen_stm8.svg
    :target: https://github.com/vroncevic/gen_stm8/graphs/contributors
 
-.. |documentation status| image:: https://readthedocs.org/projects/gen-avr8/badge/?version=latest
-   :target: https://gen-avr8.readthedocs.io/en/latest/?badge=latest
+.. |documentation status| image:: https://readthedocs.org/projects/gen-stm8/badge/?version=latest
+   :target: https://gen-stm8.readthedocs.io/en/latest/?badge=latest
 
 .. toctree::
    :maxdepth: 4

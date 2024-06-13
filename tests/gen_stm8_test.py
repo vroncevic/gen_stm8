@@ -37,7 +37,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2024, https://vroncevic.github.io/gen_stm8'
 __credits__: List[str] = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
-__version__ = '1.4.3'
+__version__ = '1.4.4'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -78,38 +78,30 @@ class GenSTM8TestCase(TestCase):
     def test_missing_args(self) -> None:
         '''Test missing args'''
         sys.argv.clear()
-        sys.argv.insert(0, 'python3')
-        sys.argv.insert(1, 'gen_gen_stm8_run.py')
         generator: GenSTM8 = GenSTM8()
         self.assertFalse(generator.process())
 
     def test_wrong_arg(self) -> None:
         '''Test wrong arg'''
         sys.argv.clear()
-        sys.argv.insert(0, 'python3')
-        sys.argv.insert(1, 'gen_gen_stm8_run.py')
-        sys.argv.insert(2, '-d')
-        sys.argv.insert(3, 'wrong')
+        sys.argv.insert(0, '-d')
+        sys.argv.insert(1, 'wrong')
         generator: GenSTM8 = GenSTM8()
         self.assertFalse(generator.process())
 
     def test_process(self) -> None:
         '''Generate project structure'''
         sys.argv.clear()
-        sys.argv.insert(0, 'python3')
-        sys.argv.insert(1, 'gen_gen_stm8_run.py')
-        sys.argv.insert(2, '-g')
-        sys.argv.insert(3, 'latest')
+        sys.argv.insert(0, '-n')
+        sys.argv.insert(1, 'latest')
         generator: GenSTM8 = GenSTM8()
         self.assertTrue(generator.process())
 
     def test_tool_not_operational(self) -> None:
         '''Test not operational'''
         sys.argv.clear()
-        sys.argv.insert(0, 'python3')
-        sys.argv.insert(1, 'gen_gen_stm8_run.py')
-        sys.argv.insert(2, '-g')
-        sys.argv.insert(3, 'fresh')
+        sys.argv.insert(0, '-n')
+        sys.argv.insert(1, 'fresh')
         generator: GenSTM8 = GenSTM8()
         generator.tool_operational = False
         self.assertFalse(generator.process())
@@ -117,10 +109,8 @@ class GenSTM8TestCase(TestCase):
     def test_pro_already_exists(self) -> None:
         '''Test pro already exists'''
         sys.argv.clear()
-        sys.argv.insert(0, 'python3')
-        sys.argv.insert(1, 'gen_gen_stm8_run.py')
-        sys.argv.insert(2, '-g')
-        sys.argv.insert(3, 'fresh_new')
+        sys.argv.insert(0, '-n')
+        sys.argv.insert(1, 'fresh_new')
         generator: GenSTM8 = GenSTM8()
         makedirs('fresh_new')
         self.assertFalse(generator.process())

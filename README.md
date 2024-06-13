@@ -1,6 +1,6 @@
-<img align="right" src="https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/docs/gen_stm8_logo.png" width="25%">
-
 # STM8 project skeleton generator
+
+<img align="right" src="https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/docs/gen_stm8_logo.png" width="25%">
 
 **gen_stm8** is toolset for generation STM8 project skeleton for
 developmet of embedded applications.
