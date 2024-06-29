@@ -39,8 +39,8 @@ RUN rm -f get-pip.py
 COPY requirements.txt /
 RUN pip3 install -r requirements.txt
 RUN rm -f requirements.txt
-RUN mkdir /armpicom/
-COPY armpicom /armpicom/
+RUN mkdir /gen_stm8/
+COPY gen_stm8 /gen_stm8/
 COPY setup.py /
 COPY README.md /
 COPY LICENSE /
@@ -49,8 +49,8 @@ COPY MANIFEST.in /
 COPY pyproject.toml /
 RUN mkdir /tests/
 RUN python3 -m build --no-isolation --wheel
-RUN pip3 install ./dist/armpicom-*-py3-none-any.whl
-RUN rm -rf /armpicom*
+RUN pip3 install ./dist/gen-stm8-*-py3-none-any.whl
+RUN rm -rf /gen_stm8*
 RUN rm -f setup.py
 RUN rm -f README.md
 RUN rm -f LICENSE
