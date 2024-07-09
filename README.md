@@ -110,29 +110,39 @@ You can use Dockerfile to create image/container.
 Generator structure
 
 ```bash
-gen_stm8/
-    ├── conf/
-    │   ├── gen_stm8.logo
-    │   ├── gen_stm8.cfg
-    │   ├── gen_stm8_util.cfg
-    │   ├── project.yaml
-    │   └── template/
-    │       ├── Makefile.template
-    │       ├── module.template
-    │       └── stm8s.template
-    ├── __init__.py
-    ├── log/
-    │   └── gen_stm8.log
-    ├── pro/
-    │   ├── __init__.py
-    │   ├── read_template.py
-    │   └── write_template.py
-    └── run/
-        ├── factory_reset.sh
-        └── gen_stm8_run.py
+    gen_stm8/
+        ├── conf/
+        │   ├── gen_stm8.logo
+        │   ├── gen_stm8.cfg
+        │   ├── gen_stm8_util.cfg
+        │   ├── project.yaml
+        │   └── template/
+        │       ├── Makefile.template
+        │       ├── module.template
+        │       └── stm8s.template
+        ├── __init__.py
+        ├── log/
+        │   └── gen_stm8.log
+        ├── pro/
+        │   ├── __init__.py
+        │   ├── read_template.py
+        │   └── write_template.py
+        └── run/
+            ├── factory_reset.sh
+            └── gen_stm8_run.py
 
     6 directories, 14 files
 ```
+
+### Code coverage
+
+| Name | Stmts | Miss | Cover |
+|------|-------|------|-------|
+| `gen_stm8/__init__.py` | 71 | 12 | 83% |
+| `gen_stm8/pro/__init__.py` | 59 | 2 | 97% |
+| `gen_stm8/pro/read_template.py` | 53 | 2 | 96% |
+| `gen_stm8/pro/write_template.py` | 62 | 3 | 95% |
+| **Total** | 245 | 19 | 92% |
 
 ### Docs
 
