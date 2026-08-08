@@ -1,15 +1,14 @@
-# STM8 project skeleton generator
+# Create STM8 project skeleton
 
 <img align="right" src="https://raw.githubusercontent.com/vroncevic/gen_stm8/dev/docs/gen_stm8_logo.png" width="25%">
 
-**gen_stm8** is toolset for generation STM8 project skeleton for
-developmet of embedded applications.
+**gen_stm8** is tool for creating STM8 project skeleton.
 
 Developed in **[python](https://www.python.org/)** code.
 
-The README is used to introduce the modules and provide instructions on
-how to install the modules, any machine dependencies it may have and any
-other information that should be provided before the modules are installed.
+The README is used to introduce the tool and provide instructions on
+how to install the tool, any machine dependencies it may have and any
+other information that should be provided before the tool is installed.
 
 [![gen_stm8 python checker](https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_python_checker.yml/badge.svg)](https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_python_checker.yml) [![gen_stm8 package checker](https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_package_checker.yml/badge.svg)](https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_package.yml) [![GitHub issues open](https://img.shields.io/github/issues/vroncevic/gen_stm8.svg)](https://github.com/vroncevic/gen_stm8/issues) [![GitHub contributors](https://img.shields.io/github/contributors/vroncevic/gen_stm8.svg)](https://github.com/vroncevic/gen_stm8/graphs/contributors)
 
@@ -17,21 +16,23 @@ other information that should be provided before the modules are installed.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
 
-- [Installation](#installation)
+- [🚀 Installation](#-installation)
     - [Install using pip](#install-using-pip)
     - [Install using build](#install-using-build)
     - [Install using py setup](#install-using-py-setup)
     - [Install using docker](#install-using-docker)
-- [Dependencies](#dependencies)
-- [Tool structure](#tool-structure)
-- [Code coverage](#code-coverage)
-- [Docs](#docs)
-- [Contributing](#contributing)
-- [Copyright and licence](#copyright-and-licence)
+- [📦 Dependencies](#-dependencies)
+- [📁 Tool structure](#-tool-structure)
+  - [✨ Features](#-features)
+- [📊 Code coverage](#-code-coverage)
+- [🛠 Usage](#-usage)
+- [📚 Docs](#-docs)
+- [👥 Contributing](#-contributing)
+- [📄 Copyright and licence](#-copyright-and-licence)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-### Installation
+### 🚀 Installation
 
 Used next development environment
 
@@ -39,7 +40,7 @@ Used next development environment
 
 [![gen_stm8 python3 build](https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_python3_build.yml/badge.svg)](https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_python3_build.yml)
 
-Currently there are three ways to install package
+Currently there are four ways to install package
 * Install process based on using pip mechanism
 * Install process based on build mechanism
 * Install process based on setup.py mechanism
@@ -47,12 +48,12 @@ Currently there are three ways to install package
 
 ##### Install using pip
 
-Python package is located at **[pypi.org](https://pypi.org/project/gen_stm8/)**.
+**gen_stm8** is located at **[pypi.org](https://pypi.org/project/gen_stm8/)**.
 
 You can install by using pip
 
 ```bash
-#python3
+# python3
 pip3 install gen_stm8
 ```
 
@@ -68,6 +69,8 @@ cd gen_stm8-x.y.z/
 # python3
 wget https://bootstrap.pypa.io/get-pip.py
 python3 get-pip.py 
+# python3
+python3 get-pip.py
 python3 -m pip install --upgrade setuptools
 python3 -m pip install --upgrade pip
 python3 -m pip install --upgrade build
@@ -75,8 +78,6 @@ pip3 install -r requirements.txt
 python3 -m build --no-isolation --wheel
 pip3 install ./dist/gen_stm8-*-py3-none-any.whl
 rm -f get-pip.py
-chmod 755 /usr/local/lib/python3.9/dist-packages/usr/local/bin/gen_stm8_run.py
-ln -s /usr/local/lib/python3.9/dist-packages/usr/local/bin/gen_stm8_run.py /usr/local/bin/gen_stm8_run.py
 ```
 
 ##### Install using py setup
@@ -98,67 +99,178 @@ python3 setup.py install_egg_info
 
 You can use Dockerfile to create image/container.
 
-### Dependencies
+### 📦 Dependencies
 
 **gen_stm8** requires next modules and libraries
 
-- [ats-utilities - Python App/Tool/Script Utilities](https://vroncevic.github.io/ats_utilities)
+* [ats-utilities - Python App/Tool/Script Utilities](https://pypi.org/project/ats-utilities/)
 
-### Tool structure
+### 📁 Tool structure
 
 **gen_stm8** is based on OOP.
 
-Generator structure
+Tool structure
+
+<details>
+<summary><b>Click to expand framework structure</b></summary>
 
 ```bash
     gen_stm8/
-        ├── conf/
-        │   ├── gen_stm8.logo
-        │   ├── gen_stm8.cfg
-        │   ├── gen_stm8_util.cfg
-        │   ├── project.yaml
-        │   └── template/
-        │       ├── Makefile.template
-        │       ├── module.template
-        │       └── stm8s.template
-        ├── __init__.py
-        ├── log/
-        │   └── gen_stm8.log
-        ├── pro/
-        │   ├── __init__.py
-        │   ├── read_template.py
-        │   └── write_template.py
-        └── run/
-            ├── factory_reset.sh
-            └── gen_stm8_run.py
+         ├── core/
+         │   ├── __init__.py
+         │   ├── model/
+         │   │   ├── __init__.py
+         │   │   └── project_setup.py
+         │   └── service/
+         │       ├── engine.py
+         │       ├── __init__.py
+         │       ├── iservice.py
+         │       └── isubprocessor.py
+         ├── engine.py
+         ├── infrastructure/
+         │   ├── cli/
+         │   │   ├── engine.py
+         │   │   ├── icli.py
+         │   │   ├── __init__.py
+         │   │   └── setup/
+         │   │       ├── bundle.py
+         │   │       ├── dep_validator.py
+         │   │       ├── dependencies.py
+         │   │       ├── factory.py
+         │   │       ├── __init__.py
+         │   │       ├── keys.py
+         │   │       ├── opt_validator.py
+         │   │       ├── options.py
+         │   │       ├── registry.py
+         │   │       └── validator.py
+         │   ├── command/
+         │   │   ├── command.py
+         │   │   ├── gen_stm8_command_definition.py
+         │   │   ├── gen_stm8_command_executor.py
+         │   │   ├── icommand_definition.py
+         │   │   ├── icommand_executor.py
+         │   │   └── __init__.py
+         │   ├── config/
+         │   │   ├── gen_stm8.cfg
+         │   │   ├── gen_stm8.logo
+         │   │   ├── scheme.json
+         │   │   └── templates.tgz
+         │   ├── __init__.py
+         │   └── subprocessor.py
+         ├── __init__.py
+         ├── py.typed
+         └── setup/
+             ├── bundle.py
+             ├── dep_validator.py
+             ├── dependencies.py
+             ├── factory.py
+             ├── __init__.py
+             ├── keys.py
+             ├── opt_validator.py
+             ├── options.py
+             ├── registry.py
+             └── validator.py
 
-    6 directories, 14 files
+       10 directories, 45 files
 ```
+</details>
 
-### Code coverage
+#### ✨ Features
+
+* Automatically scaffolds STM8 projects with build/make files.
+* Provides a modular and extensible architecture based on OOP and SOLID principles.
+* Includes command line interface (CLI) support via a command/executor structure.
+* Robust validation of project bundles, dependencies, and options.
+* Comes with configurable templates and JSON schema definitions.
+* High code quality with full type checking and 100% unit test coverage.
+
+### 📊 Code coverage
+
+<details>
+<summary><b>Click to expand code coverage</b></summary>
 
 | Name | Stmts | Miss | Cover |
 |------|-------|------|-------|
-| `gen_stm8/__init__.py` | 69 | 10 | 86%|
-| `gen_stm8/pro/__init__.py` | 57 | 0 | 100%|
-| `gen_stm8/pro/read_template.py` | 51 | 0 | 100%|
-| `gen_stm8/pro/write_template.py` | 60 | 1 | 98%|
-| **Total** | 237 | 11 | 95% |
+| `gen_stm8/__init__.py` | 8 | 0 | 100%|
+| `gen_stm8/core/__init__.py` | 9 | 0 | 100%|
+| `gen_stm8/core/model/__init__.py` | 9 | 0 | 100%|
+| `gen_stm8/core/model/project_setup.py` | 14 | 0 | 100%|
+| `gen_stm8/core/service/__init__.py` | 9 | 0 | 100%|
+| `gen_stm8/core/service/engine.py` | 27 | 3 | 89%|
+| `gen_stm8/core/service/iservice.py` | 16 | 2 | 88%|
+| `gen_stm8/core/service/isubprocessor.py` | 16 | 2 | 88%|
+| `gen_stm8/engine.py` | 57 | 0 | 100%|
+| `gen_stm8/infrastructure/__init__.py` | 8 | 0 | 100%|
+| `gen_stm8/infrastructure/cli/__init__.py` | 9 | 0 | 100%|
+| `gen_stm8/infrastructure/cli/engine.py` | 39 | 7 | 82%|
+| `gen_stm8/infrastructure/cli/icli.py` | 16 | 2 | 88%|
+| `gen_stm8/infrastructure/cli/setup/__init__.py` | 9 | 0 | 100%|
+| `gen_stm8/infrastructure/cli/setup/bundle.py` | 22 | 1 | 95%|
+| `gen_stm8/infrastructure/cli/setup/dep_validator.py` | 28 | 0 | 100%|
+| `gen_stm8/infrastructure/cli/setup/dependencies.py` | 18 | 0 | 100%|
+| `gen_stm8/infrastructure/cli/setup/keys.py` | 26 | 1 | 96%|
+| `gen_stm8/infrastructure/cli/setup/registry.py` | 21 | 0 | 100%|
+| `gen_stm8/infrastructure/cli/setup/validator.py` | 35 | 0 | 100%|
+| `gen_stm8/infrastructure/command/__init__.py` | 9 | 0 | 100%|
+| `gen_stm8/infrastructure/command/command.py` | 16 | 0 | 100%|
+| `gen_stm8/infrastructure/command/gen_stm8_command_definition.py` | 24 | 1 | 96%|
+| `gen_stm8/infrastructure/command/gen_stm8_command_executor.py` | 21 | 2 | 90%|
+| `gen_stm8/infrastructure/command/icommand_definition.py` | 15 | 0 | 100%|
+| `gen_stm8/infrastructure/command/icommand_executor.py` | 14 | 1 | 93%|
+| `gen_stm8/infrastructure/subprocessor.py` | 56 | 19 | 66%|
+| `gen_stm8/setup/__init__.py` | 9 | 0 | 100%|
+| `gen_stm8/setup/bundle.py` | 23 | 1 | 96%|
+| `gen_stm8/setup/dep_validator.py` | 28 | 0 | 100%|
+| `gen_stm8/setup/dependencies.py` | 19 | 0 | 100%|
+| `gen_stm8/setup/factory.py` | 45 | 1 | 98%|
+| `gen_stm8/setup/keys.py` | 27 | 1 | 96%|
+| `gen_stm8/setup/opt_validator.py` | 26 | 9 | 65%|
+| `gen_stm8/setup/options.py` | 12 | 0 | 100%|
+| `gen_stm8/setup/registry.py` | 29 | 0 | 100%|
+| `gen_stm8/setup/validator.py` | 40 | 0 | 100%|
+| **Total** | 801 | 53 | 93% |
 
-### Docs
+</details>
+
+### 🛠 Usage
+
+Install package
+
+```bash
+pip3 install gen_stm8
+```
+
+Prepare main entry point by downloading [main.py](https://raw.githubusercontent.com/vroncevic/gen_stm8/main/main.py) or create your own.
+
+
+```bash
+wget -O main.py https://raw.githubusercontent.com/vroncevic/gen_stm8/main/main.py
+```
+
+Running tool for creating new STM8 project skeleton
+
+```bash
+python3 main.py create --name mytool --output ./demo/
+```
+
+### 📚 Docs
 
 [![Documentation Status](https://readthedocs.org/projects/gen-stm8/badge/?version=latest)](https://gen-stm8.readthedocs.io/en/latest/?badge=latest)
 
 More documentation and info at
 
-- [gen_stm8.readthedocs.io](https://gen-stm8.readthedocs.io/)
-- [www.python.org](https://www.python.org/)
+* [gen_stm8.readthedocs.io](https://gen-stm8.readthedocs.io)
+* [www.python.org](https://www.python.org/)
 
-### Copyright and licence
+### 👥 Contributing
+
+[Contributing to gen_stm8](CONTRIBUTING.md)
+
+### 📄 Copyright and licence
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Copyright (C) 2018 - 2026 by [vroncevic.github.io/gen_stm8](https://vroncevic.github.io/gen_stm8/)
+Copyright (C) 2025 - 2026 by [vroncevic.github.io/gen_stm8](https://vroncevic.github.io/gen_stm8/)
 
 **gen_stm8** is free software; you can redistribute it and/or modify
 it under the same terms as Python itself, either Python version 3.x or,
