@@ -7,7 +7,16 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   gen_stm8.pro
+   gen_stm8.core
+   gen_stm8.setup
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   gen_stm8.engine
 
 Module contents
 ---------------

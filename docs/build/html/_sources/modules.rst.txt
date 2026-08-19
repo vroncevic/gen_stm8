@@ -5,4 +5,4 @@ gen_stm8
    :maxdepth: 4
 
    gen_stm8
-
+   main
