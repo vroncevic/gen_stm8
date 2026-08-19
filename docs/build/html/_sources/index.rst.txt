@@ -36,10 +36,19 @@ other information that should be provided before the tool is installed.
 🚀 Installation
 ------------------
 
-|gen_stm8 python3 build|
+|gen_stm8 python3 build| |gen_stm8_interface_checker| |gen_stm8_isp_checker| |gen_stm8_srp_checker|
 
 .. |gen_stm8 python3 build| image:: https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_python3_build.yml/badge.svg
    :target: https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_python3_build.yml
+
+.. |gen_stm8_interface_checker| image:: https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_interface_checker.yml/badge.svg
+   :target: https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_interface_checker.yml
+
+.. |gen_stm8_isp_checker| image:: https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_isp_checker.yml/badge.svg
+   :target: https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_isp_checker.yml
+
+.. |gen_stm8_srp_checker| image:: https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_srp_checker.yml/badge.svg
+   :target: https://github.com/vroncevic/gen_stm8/actions/workflows/gen_stm8_srp_checker.yml
 
 Navigate to release `page`_ download and extract release archive.
 
