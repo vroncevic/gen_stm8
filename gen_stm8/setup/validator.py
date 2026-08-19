@@ -22,6 +22,7 @@ Info
 from __future__ import annotations
 
 from ats_utilities.base.setup.bundle import BaseBundle
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.validation.check_value import not_none
 from ats_utilities.validation.check_type import istype
 
@@ -48,6 +49,7 @@ class GenSTM8BundleValidator:
 
             :methods:
                 | validate - Validates the gen_stm8 bundle.
+                | is_valid - Checks if the gen_stm8 bundle is valid.
     '''
 
     @classmethod
@@ -85,3 +87,18 @@ class GenSTM8BundleValidator:
         istype(bundle.service, IService, ctx, msg_service_istype)
         istype(bundle.subprocessor, ISubProcessor, ctx, msg_subprocessor_istype)
         istype(bundle.cli, ICLI, ctx, msg_cli_istype)
+
+    @classmethod
+    def is_valid(cls, genstm8bundle: GenSTM8Bundle) -> bool:
+        '''
+            Checks if the genstm8bundle is valid.
+
+            :param genstm8bundle: The genstm8bundle to be checked.
+            :return: True if valid, False otherwise.
+        '''
+        try:
+            cls.validate(genstm8bundle)
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False

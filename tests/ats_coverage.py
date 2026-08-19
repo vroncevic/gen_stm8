@@ -153,7 +153,7 @@ def update_readme(coverage: Dict[str, Any]) -> None:
     miss: str = 'missing_lines'
     cover: str = 'percent_covered_display'
     for line in lines:
-        if start_marker in line:
+        if '###' in line and 'Code coverage' in line:
             inside_block = True
             new_lines.append(line)
             new_lines.append('\n')
@@ -183,7 +183,7 @@ def update_readme(coverage: Dict[str, Any]) -> None:
             total += f' {total_covered}% |\n'
             new_lines.append(total)
             continue
-        elif end_marker in line:
+        elif '###' in line and 'Docs' in line:
             inside_block = False
             new_lines.append('\n')
             new_lines.append(line)

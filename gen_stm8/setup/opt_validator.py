@@ -23,6 +23,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -47,6 +48,7 @@ class GenSTM8BundleOptionsValidator:
 
             :methods:
                 | validate - Validates the gen_stm8 bundle options.
+                | is_valid - Checks if the gen_stm8 bundle options is valid.
     '''
 
     @classmethod
@@ -73,3 +75,18 @@ class GenSTM8BundleOptionsValidator:
             attribute = options.get(attr_name)
 
             istype(attribute, expected_type, ctx, msg_attr_name_istype)
+
+    @classmethod
+    def is_valid(cls, genstm8bundleoptions: GenSTM8BundleOptions) -> bool:
+        '''
+            Checks if the genstm8bundleoptions is valid.
+
+            :param genstm8bundleoptions: The genstm8bundleoptions to be checked.
+            :return: True if valid, False otherwise.
+        '''
+        try:
+            cls.validate(genstm8bundleoptions)
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False

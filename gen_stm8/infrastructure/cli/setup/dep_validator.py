@@ -23,8 +23,9 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ats_utilities.validation.check_type import istype
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.validation.check_value import not_none
+from ats_utilities.validation.check_type import istype
 
 from gen_stm8.infrastructure.cli.setup.keys import CLIBundleKeys
 from gen_stm8.infrastructure.cli.setup.dependencies import CLIBundleDependencies
@@ -47,6 +48,7 @@ class CLIBundleDependenciesValidator:
 
             :methods:
                 | validate - Validates the CLI bundle dependencies.
+                | is_valid - Checks if the CLI bundle dependencies is valid.
     '''
 
     @classmethod
@@ -75,3 +77,18 @@ class CLIBundleDependenciesValidator:
 
             not_none(attribute, ctx, msg_attr_name_none)
             istype(attribute, expected_type, ctx, msg_attr_name_istype)
+
+    @classmethod
+    def is_valid(cls, clibundledependencies: CLIBundleDependencies) -> bool:
+        '''
+            Checks if the clibundledependencies is valid.
+
+            :param clibundledependencies: The clibundledependencies to be checked.
+            :return: True if valid, False otherwise.
+        '''
+        try:
+            cls.validate(clibundledependencies)
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False

@@ -38,7 +38,7 @@ __author__ = 'Vladimir Roncevic'
 __copyright__ = '(C) 2026, https://vroncevic.github.io/gen_stm8'
 __credits__ = ['Vladimir Roncevic', 'Python Software Foundation']
 __license__ = 'https://github.com/vroncevic/gen_stm8/blob/dev/LICENSE'
-__version__ = '1.4.7'
+__version__ = '1.4.8'
 __maintainer__ = 'Vladimir Roncevic'
 __email__ = 'elektron.ronca@gmail.com'
 __status__ = 'Updated'
@@ -94,11 +94,10 @@ class SubProcessor:
             :exceptions: None.
         '''
         try:
-            current_dir: str = dirname(realpath(__file__))
             output_dir: str = params.get('output')
             project_name: str = params.get('name')
-            scheme: str = f'{current_dir}/{self._scheme}'
-            templates: str = f'{current_dir}/{self._templates}'
+            scheme: str = f'{dirname(realpath(__file__))}/{self._scheme}'
+            templates: str = f'{dirname(realpath(__file__))}/{self._templates}'
 
             success = self._generator.generate(
                 data=GeneratorData(
@@ -117,7 +116,7 @@ class SubProcessor:
             if success:
                 self._logger.write_log(INFO, '    Generated files:',)
 
-                for root, dirs, files in walk(output_dir):
+                for root, _, files in walk(output_dir):
                     for file in files:
                         rel_dir = relpath(root, output_dir)
 

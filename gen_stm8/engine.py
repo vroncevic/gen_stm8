@@ -84,14 +84,14 @@ class GenSTM8(Base):
             self._cli = bundle.cli
 
             # Mark as initialized (all components initialized)
-            self._is_initialized = all([
+            self._is_initialized = all(
                 component.is_initialized() for component in [
                     bundle.base.option_manager,
                     bundle.service,
                     bundle.subprocessor,
                     self._cli
                 ] if component
-            ])
+            )
 
             # Setting up logger for tool engine
             self._logger = self.get_context().logger
@@ -103,10 +103,11 @@ class GenSTM8(Base):
         except Exception as exc:
             stdout.write(f'❌ gen_stm8 unexpected exception: {exc}!\n')
 
-    def process(self) -> bool:
+    def process(self, verbose: bool = False) -> bool:
         '''
             Processes the gen_stm8 commands.
 
+            :param verbose: Verbose execution flag.
             :return: True if successful, False otherwise.
             :exceptions: None.
         '''
@@ -121,13 +122,13 @@ class GenSTM8(Base):
                 if result.get("returncode") != 0:
                     self._logger.write_log(ERROR, f'❌ gen_stm8: {result.get("stderr") or "failed!"}')
                     return False
-                else:
-                    self._logger.write_log(INFO, '✅ gen_stm8: done!')
-                    self._logger.write_log(INFO, '✅ gen_stm8: exiting successfully!')
-                    return True
-            else:
-                self._logger.write_log(ERROR, '❌ gen_stm8: engine not initialized!')
-                return False
+
+                self._logger.write_log(INFO, '✅ gen_stm8: done!')
+                self._logger.write_log(INFO, '✅ gen_stm8: exiting successfully!')
+                return True
+
+            self._logger.write_log(ERROR, '❌ gen_stm8: engine not initialized!')
+            return False
 
         except (ATSValueError, ATSTypeError) as exc:
             self._logger.write_log(ERROR, f'❌ gen_stm8: {exc}!')

@@ -21,7 +21,7 @@ Info
 
 from __future__ import annotations
 
-from sys import exit
+from sys import exit as sys_exit
 
 from gen_stm8.engine import GenSTM8
 from gen_stm8.setup.factory import GenSTM8BundleFactory
@@ -55,4 +55,4 @@ if __name__ == '__main__':
         :exit code: 0 if successful, 1 otherwise.
         :exceptions: None
     '''
-    exit(0 if main() else 1)
+    sys_exit(0 if main() else 1)

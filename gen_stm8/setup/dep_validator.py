@@ -23,6 +23,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
+from ats_utilities.exceptions import ATSValueError, ATSTypeError
 from ats_utilities.validation.check_type import istype
 from ats_utilities.validation.check_value import not_none
 
@@ -47,6 +48,7 @@ class GenSTM8BundleDependenciesValidator:
 
             :methods:
                 | validate - Validates the gen_stm8 bundle dependencies.
+                | is_valid - Checks if the gen_stm8 bundle dependencies is valid.
     '''
 
     @classmethod
@@ -75,3 +77,18 @@ class GenSTM8BundleDependenciesValidator:
 
             not_none(attribute, ctx, msg_attr_name_none)
             istype(attribute, expected_type, ctx, msg_attr_name_istype)
+
+    @classmethod
+    def is_valid(cls, genstm8bundledependencies: GenSTM8BundleDependencies) -> bool:
+        '''
+            Checks if the genstm8bundledependencies is valid.
+
+            :param genstm8bundledependencies: The genstm8bundledependencies to be checked.
+            :return: True if valid, False otherwise.
+        '''
+        try:
+            cls.validate(genstm8bundledependencies)
+            return True
+
+        except (ATSValueError, ATSTypeError):
+            return False

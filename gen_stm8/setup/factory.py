@@ -63,6 +63,7 @@ class GenSTM8BundleFactory:
                 | _info_file - Path to the gen_stm8 info file.
             :methods:
                 | create_bundle - Creates the gen_stm8 bundle with optional pre-configured options.
+                | get_version - Returns the factory version.
     '''
 
     _info_file: str = 'gen_stm8/infrastructure/config/gen_stm8.cfg'
@@ -129,3 +130,13 @@ class GenSTM8BundleFactory:
                 cli=cli
             )
         )
+
+    @classmethod
+    def get_version(cls) -> str:
+        '''
+            Returns the factory version.
+
+            :return: The factory version.
+            :exceptions: None.
+        '''
+        return __version__
